@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 class Pessoa
 {
@@ -18,16 +20,37 @@ class Program
 {
     static void Main()
     {
-        Pessoa pessoal1 = new Pessoa("Daniel", 30, "danielfernandomo23@gmail.com");
+        List<Pessoa> listaPessoas = new List<Pessoa>();
 
-        Console.WriteLine("Nome: " + pessoal1.Nome);
-        Console.WriteLine("Idade: " + pessoal1.Idade);
-        Console.WriteLine("Email: " + pessoal1.Email);
-        Console.WriteLine();
+        Console.WriteLine("Digite a quantidade de pessoas que deseja adicionar:");
+        int numPessoas = int.Parse(Console.ReadLine());
 
-        Console.WriteLine("Pressione qualquer tecla para sair...");
+        for (int i = 0; i < numPessoas; i++)
+        {
+            Console.WriteLine($"Adicionando pessoa {i + 1}");
+
+            Console.Write("Nome: ");
+            string nome = Console.ReadLine();
+
+            Console.Write("Idade: ");
+            int idade = int.Parse(Console.ReadLine());
+
+            Console.Write("Email: ");
+            string email = Console.ReadLine();
+
+            listaPessoas.Add(new Pessoa(nome, idade, email));
+        }
+
+        // Aqui filtra as pessoas com mais de 30 anos.
+        var pessoasComMaisDe30 = listaPessoas.Where(p => p.Idade > 30).ToList();
+
+        Console.WriteLine("\nPessoas com mais de 30 anos:");
+        foreach (var pessoa in pessoasComMaisDe30)
+        {
+            Console.WriteLine($"Nome: {pessoa.Nome}");
+        }
+
+        Console.WriteLine("\nPressione qualquer tecla para sair...");
         Console.ReadKey();
     }
-        
 }
-
